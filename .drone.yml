@@ -12,7 +12,3 @@ steps:
       from_secret: docker_password
     repo: lizheming/drone-deta
     auto_tag: true
-  when:
-    event: tag
-    branch:
-    - master
