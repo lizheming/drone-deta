@@ -3,55 +3,75 @@ set -e
   
 if [ -n "$PLUGIN_ACCESS_TOKEN" ]
 then
-  DETA_ACCESS_TOKEN="$PLUGIN_ACCESS_TOKEN"
+  SPACE_ACCESS_TOKEN="$PLUGIN_ACCESS_TOKEN"
 fi
 
-if [ -n "$PLUGIN_NAME" ]
-then 
-  DETA_NAME="$PLUGIN_NAME"
-fi
-
-if [ -n "$PLUGIN_PROJECT" ]
-then 
-  DETA_PROJECT="$PLUGIN_PROJECT"
-fi
-
-if [ -z "$DETA_PROJECT" ]
+if [ -n "$PLUGIN_ID" ]
 then
-  DETA_PROJECT="default"
+  SPACE_ID="$PLUGIN_ID"
 fi
 
-if [ -n "$PLUGIN_PROJECT_DIR" ]
+if [ -n "$PLUGIN_TAG" ]
 then
-  DETA_PROJECT_DIR="$PLUGIN_PROJECT_DIR"
+  SPACE_PUSH_TAG="$PLUGIN_TAG"
 fi
 
-if [ -z "$DETA_PROJECT_DIR" ]
+if [ -n "$PLUGIN_DIR" ]
 then
-  DETA_PROJECT_DIR="."
+  SPACE_DIR="$PLUGIN_DIR"
 fi
 
-if [ -z "$DETA_ACCESS_TOKEN" ]
+if [ -n "$PLUGIN_LISTED" ]
+then
+  SPACE_LISTED="$PLUGIN_LISTED"
+fi
+
+if [ -n "$PLUGIN_NOTES" ]
+then
+  SPACE_NOTES="$PLUGIN_NOTES"
+fi
+
+if [ -n "$PLUGIN_RID" ]
+then
+  SPACE_RID="$PLUGIN_RID"
+fi
+
+if [ -n "$PLUGIN_VERSION" ]
+then
+  SPACE_PUSH_TAG="$PLUGIN_VERSION"
+fi
+
+
+if [ -z "$SPACE_ACCESS_TOKEN" ]
 then 
-  if [ -z "$DETA_NAME" ]
-  then
-    echo "> Error! deta_token and deta_name is required"
+  if [ -z "$SPACE_ID" ]
+  then 
+    echo "> Error! space_token and space_id is required"
     exit 1;
   fi
 fi
 
 
-cd "$DETA_PROJECT_DIR"
-~/.deta/bin/deta clone --name "$DETA_NAME" --project "$DETA_PROJECT" tmp/
-cp -r tmp/.deta .
+echo "> Space login with access token"
+echo "{\"access_token\":\"$SPACE_ACCESS_TOKEN\"}" > ~/.detaspace/space_tokens
 
-echo "> Updating your Deta site…"
-~/.deta/bin/deta deploy
+echo "> Start push your project to Deta space…"
+~/.detaspace/bin/space push --skip-logs --id=$SPACE_ID --tag=$SPACE_PUSH_TAG
 rc=$?;
 if [[ $rc != 0 ]];
 then 
-    echo "> non-zero exit code $rc" &&
+    echo "> space push non-zero exit code $rc" &&
     exit $rc
 else
-    echo $'\n'"> Successfully deployed!"$'\n'
+    echo $'\n'"> Successfully pushed!"$'\n'
+fi
+
+echo "> Start release your build version"
+space release --id=$SPACE_ID --listed=$SPACE_LISTED --dir=$SPACE_DIR --notes=$SPACE_NOTES --rid=$SPACE_RID --version=$SPACE_VERSION
+if [[ $rc != 0 ]];
+then 
+    echo "> space release non-zero exit code $rc" &&
+    exit $rc
+else
+    echo $'\n'"> Successfully released!"$'\n'
 fi

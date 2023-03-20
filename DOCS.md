@@ -8,7 +8,7 @@ logo: deta.svg
 image: lizheming/drone-deta
 ---
 
-The Deta plugin deploy your build to [deta.sh](https://deta.sh).
+The Deta plugin deploy your build to [deta.space](https://deta.space).
 
 The below pipeline configuration demonstrates simple usage:
 
@@ -18,17 +18,24 @@ steps:
   image: lizheming/drone-deta
   settings:
     access_token:
-      from_secret: deta_access_token
-    name: test-name
-    project: default
+      from_secret: space_access_token
+    id: test-id
 ```
 
 # Parameter Reference
 
-access_token: Deta access token. [How to get Deta access token?](https://docs.deta.sh/docs/cli/auth#deta-access-tokens)
+access_token: Deta access token. [How to get Deta access token?](https://deta.space/docs/en/basics/cli#authentication)
 
-name: Deta micro name
+id: project id of an existing project
 
-project: Deta project name, default is "default".
+tag: tag to identify this push
 
-project_dir: Directory of the project, default is ".".
+dir: src of project to push (default "./")
+
+listed: listed on discovery
+
+notes: release notes
+
+rid: revision id for release
+
+versioin: version for the release

@@ -6,20 +6,24 @@
 
 <img src="deta.svg" alt="logo" width="240"/>
 
-Deploying to [Deta](https://deta.sh) with Drone CI
+Deploying to [Deta](https://deta.space) with Drone CI
 ## Environment
 
-- `DETA_ACCESS_TOKEN`: Deta access token. [How to get Deta access token?](https://docs.deta.sh/docs/cli/auth#deta-access-tokens)
-- `DETA_NAME`: Deta micro name
-- `DETA_PROJECT`: Deta project name, default is "default".
-- `DETA_PROJECT_DIR`: Directory of the project, default is ".".
+- `SPACE_ACCESS_TOKEN`: Deta access token. [How to get Deta access token?](https://deta.space/docs/en/basics/cli#authentication)
+- `SPACE_ID`: project id of an existing project
+- `SPACE_TAG`: tag to identify this push
+- `SPACE_DIR`: src of project to push (default "./")
+- `SPACE_LISTED`: listed on discovery
+- `SPACE_NOTES`: release notes
+- `SPACE_RID`: revision id for release
+- `SPACE_VERSIION`: version for the release
 
 ## Usage
 
 ```
 docker run --rm \
-  -e DETA_ACCESS_TOKEN=access_token \
-  -e DETA_NAME=name \
+  -e SPACE_ACCESS_TOKEN=access_token \
+  -e SPACE_ID=id \
   lizheming/drone-deta
 ```
 ## Drone configuration examples
@@ -30,7 +34,6 @@ steps:
   image: lizheming/drone-deta
   settings:
     access_token:
-      from_secret: deta_access_token
-    name: test-name
-    project: default
+      from_secret: space_access_token
+    id: test-id
 ```
