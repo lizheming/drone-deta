@@ -54,11 +54,17 @@ fi
 
 echo "> Space login with access token"
 echo "{\"access_token\":\"$SPACE_ACCESS_TOKEN\"}" > /root/.detaspace/space_tokens
+mkdir .space && echo "{\"id\":\"${SPACE_ID}\",\"name\":\"\","alias":\"\"}" > ./.space/meta
 
 echo "> Start push your project to Deta space…"
-mkdir .space && echo "{\"id\":\"${SPACE_ID}\",\"name\":\"\","alias":\"\"}" > ./.space/meta
-/root/.detaspace/bin/space push --tag=$SPACE_PUSH_TAG
+pushArgs=""
+if [ -e "$SPACE_PUSH_TAG" ]
+  pushArgs="$pushArgs --tag=$SPACE_PUSH_TAG"
+fi
 
+echo "> release command: space release $pushArgs"
+
+/root/.detaspace/bin/space push $pushArgs
 rc=$?;
 if [[ $rc != 0 ]];
 then 
@@ -69,7 +75,27 @@ else
 fi
 
 echo "> Start release your build version"
-/root/.detaspace/bin/space release --listed=$SPACE_LISTED --dir=$SPACE_DIR --notes=$SPACE_NOTES --rid=$SPACE_RID --version=$SPACE_VERSION
+
+releaseArgs=""
+if [ -e "$SPACE_LISTED" ]
+  releaseArgs="$releaseArgs --listed=$SPACE_LISTED"
+fi
+if [ -e "$SPACE_DIR" ]
+  releaseArgs="$releaseArgs --dir=$SPACE_DIR"
+fi
+if [ -e "$SPACE_NOTES" ]
+  releaseArgs="$releaseArgs --notes=$SPACE_NOTES"
+fi
+if [ -e "$SPACE_RID" ]
+  releaseArgs="$releaseArgs --rid=$SPACE_RID"
+fi
+if [ -e "$SPACE_VERSION" ]
+  releaseArgs="$releaseArgs --version=$SPACE_VERSION"
+fi
+
+echo "> release command: space release $releaseArgs"
+
+/root/.detaspace/bin/space release $releaseArgs
 if [[ $rc != 0 ]];
 then 
     echo "> space release non-zero exit code $rc" &&
