@@ -8,9 +8,11 @@ LABEL org.label-schema.description="Release to deta space with Drone CI"
 LABEL org.label-schema.vendor="lizheming"
 LABEL org.label-schema.schema-version="2.0"
 
-RUN apk add curl --no-cache && \
-  curl -fsSL https://get.deta.dev/space-cli.sh | sh && \
-  apk del curl
+RUN apk add curl --no-cache
+RUN curl -fsSL https://get.deta.dev/space-cli.sh | sh
+RUN apk del curl
+
+RUN /root/.detaspace/bin/space --help
 
 ADD script.sh /bin/
 RUN chmod +x /bin/script.sh
