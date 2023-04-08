@@ -58,7 +58,7 @@ mkdir .space && echo "{\"id\":\"${SPACE_ID}\",\"name\":\"\","alias":\"\"}" > ./.
 
 echo "> Start push your project to Deta space…"
 pushArgs=""
-if [ -e "$SPACE_PUSH_TAG" ]
+if [ -e "$SPACE_PUSH_TAG" ]; then
   pushArgs="$pushArgs --tag=$SPACE_PUSH_TAG"
 fi
 
@@ -77,19 +77,19 @@ fi
 echo "> Start release your build version"
 
 releaseArgs=""
-if [ -e "$SPACE_LISTED" ]
+if [ -e "$SPACE_LISTED" ]; then
   releaseArgs="$releaseArgs --listed=$SPACE_LISTED"
 fi
-if [ -e "$SPACE_DIR" ]
+if [ -e "$SPACE_DIR" ]; then
   releaseArgs="$releaseArgs --dir=$SPACE_DIR"
 fi
-if [ -e "$SPACE_NOTES" ]
+if [ -e "$SPACE_NOTES" ]; then
   releaseArgs="$releaseArgs --notes=$SPACE_NOTES"
 fi
-if [ -e "$SPACE_RID" ]
+if [ -e "$SPACE_RID" ]; then
   releaseArgs="$releaseArgs --rid=$SPACE_RID"
 fi
-if [ -e "$SPACE_VERSION" ]
+if [ -e "$SPACE_VERSION" ]; then
   releaseArgs="$releaseArgs --version=$SPACE_VERSION"
 fi
 
