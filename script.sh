@@ -53,10 +53,11 @@ fi
 
 
 echo "> Space login with access token"
-mkdir ~/.detaspace && echo "{\"access_token\":\"$SPACE_ACCESS_TOKEN\"}" > ~/.detaspace/space_tokens
+echo "{\"access_token\":\"$SPACE_ACCESS_TOKEN\"}" > /root/.detaspace/space_tokens
 
 echo "> Start push your project to Deta space…"
-~/.detaspace/bin/space push --skip-logs --id=$SPACE_ID --tag=$SPACE_PUSH_TAG
+/root/.detaspace/bin/space push --skip-logs --id=$SPACE_ID --tag=$SPACE_PUSH_TAG
+
 rc=$?;
 if [[ $rc != 0 ]];
 then 
