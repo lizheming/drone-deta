@@ -54,7 +54,7 @@ fi
 
 echo "> Space login with access token"
 echo "{\"access_token\":\"$SPACE_ACCESS_TOKEN\"}" > /root/.detaspace/space_tokens
-mkdir .space && echo "{\"id\":\"${SPACE_ID}\",\"name\":\"\","alias":\"\"}" > ./.space/meta
+mkdir .space && echo "{\"id\":\"${SPACE_ID}\",\"name\":\"\",\"alias\":\"\"}" > ./.space/meta
 
 echo "> Start push your project to Deta space…"
 pushArgs=""
@@ -62,7 +62,7 @@ if [ -e "$SPACE_PUSH_TAG" ]; then
   pushArgs="$pushArgs --tag=$SPACE_PUSH_TAG"
 fi
 
-echo "> release command: space release $pushArgs"
+echo "> push command: space push $pushArgs"
 
 /root/.detaspace/bin/space push $pushArgs
 rc=$?;
