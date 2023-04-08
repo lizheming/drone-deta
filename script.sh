@@ -64,7 +64,7 @@ fi
 
 echo "> push command: space push $pushArgs"
 
-/root/.detaspace/bin/space push $pushArgs # | tee ./push.log
+/root/.detaspace/bin/space push $pushArgs | tee ./push.log
 rc=$?;
 if [[ $rc != 0 ]];
 then 
@@ -76,9 +76,8 @@ fi
 
 echo "> Start release your build version"
 
-# revision=$(grep -oE 'created revision: .*$' ./push.log | awk '{print $3}')
-# releaseArgs="--rid=$revision"
-releaseArgs="--latest"
+revision=$(grep -oE 'created revision: .*$' ./push.log | awk '{print $3}')
+releaseArgs="--rid=$revision"
 if [ -e "$SPACE_LISTED" ]; then
   releaseArgs="$releaseArgs --listed=$SPACE_LISTED"
 fi
