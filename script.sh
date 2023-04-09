@@ -38,7 +38,7 @@ fi
 
 if [ -n "$PLUGIN_VERSION" ]
 then
-  SPACE_PUSH_TAG="$PLUGIN_VERSION"
+  SPACE_VERSION="$PLUGIN_VERSION"
 fi
 
 
@@ -62,7 +62,7 @@ if [ -n "$SPACE_PUSH_TAG" ]; then
   pushArgs="$pushArgs --tag=$SPACE_PUSH_TAG"
 fi
 
-echo "> push command: space push $pushArgs"
+echo "> Push command: space push $pushArgs"
 
 /root/.detaspace/bin/space push $pushArgs # | tee ./push.log
 rc=$?;
@@ -95,7 +95,7 @@ if [ -n "$SPACE_VERSION" ]; then
   releaseArgs="$releaseArgs --version=$SPACE_VERSION"
 fi
 
-echo "> release command: space release $releaseArgs"
+echo "> Release command: space release $releaseArgs"
 
 /root/.detaspace/bin/space release $releaseArgs
 if [[ $rc != 0 ]];
