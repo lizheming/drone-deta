@@ -86,7 +86,7 @@ if [ -n "$SPACE_DIR" ]; then
   releaseArgs="$releaseArgs --dir=$SPACE_DIR"
 fi
 if [ -n "$SPACE_NOTES" ]; then
-  releaseArgs="$releaseArgs --notes=$SPACE_NOTES"
+  releaseArgs="$releaseArgs --notes=\"$SPACE_NOTES\""
 fi
 if [ -n "$SPACE_RID" ]; then
   releaseArgs="$releaseArgs --rid=$SPACE_RID"
