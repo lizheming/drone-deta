@@ -41,6 +41,10 @@ then
   SPACE_VERSION="$PLUGIN_VERSION"
 fi
 
+if [ -n "$PLUGIN_RELEASE" ]
+then
+  SPACE_RELEASE="$PLUGIN_RELEASE"
+fi
 
 if [ -z "$SPACE_ACCESS_TOKEN" ]
 then 
@@ -72,6 +76,11 @@ then
     exit $rc
 else
     echo $'\n'"> Successfully pushed!"$'\n'
+fi
+
+if [[ $SPACE_RELEASE == "false" || $SPACE_RELEASE == "0" || $SPACE_RELEASE == "FALSE" ]];
+then
+  exit 0;
 fi
 
 echo "> Start release your build version"

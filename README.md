@@ -17,6 +17,7 @@ Deploying to [Deta](https://deta.space) with Drone CI
 - `SPACE_NOTES`: release notes
 - `SPACE_RID`: revision id for release
 - `SPACE_VERSIION`: version for the release
+- `SPACE_RELEASE`: set `false` if you just want push and don't want release action
 
 ## Usage
 
