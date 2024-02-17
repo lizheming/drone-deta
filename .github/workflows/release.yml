@@ -36,4 +36,4 @@ jobs:
           push: true
           tags: |
             lizheming/drone-deta:latest
-            lizheming/drone-deta:2.0.2
+            lizheming/drone-deta:2.0.3
