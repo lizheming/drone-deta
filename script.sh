@@ -87,7 +87,7 @@ echo "> Start release your build version"
 
 # revision=$(grep -oE 'created revision: .*$' ./push.log | awk '{print $3}')
 # releaseArgs="--rid=$revision"
-releaseArgs="--latest"
+releaseArgs="--confirm"
 if [ -n "$SPACE_LISTED" ]; then
   releaseArgs="$releaseArgs --listed=$SPACE_LISTED"
 fi
