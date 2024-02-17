@@ -3,7 +3,7 @@ FROM golang:alpine AS build
 WORKDIR /app
 RUN apk add git --no-cache && \
   git config --global http.version HTTP/1.1 && \
-  git clone https://github.com/lizheming/space-cli.git --branch=patch-1 --depth=1 && \
+  git clone https://github.com/deta/space-cli.git --depth=1 && \
   cd space-cli && \
   go build .
 
